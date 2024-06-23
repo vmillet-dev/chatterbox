@@ -1,4 +1,4 @@
-package dev.vmillet.chatterbox.dto
+package dev.vmillet.chatterbox.models.requests
 
 data class LoginRequest(
     val usernameOrEmail: String,
