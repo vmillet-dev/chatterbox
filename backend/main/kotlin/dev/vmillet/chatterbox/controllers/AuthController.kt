@@ -2,7 +2,7 @@ package dev.vmillet.chatterbox.controllers
 
 import dev.vmillet.chatterbox.models.requests.LoginRequest
 import dev.vmillet.chatterbox.models.requests.RegisterRequest
-import dev.vmillet.chatterbox.models.ResponseMessage
+import dev.vmillet.chatterbox.models.responses.ResponseMessage
 import dev.vmillet.chatterbox.models.responses.RegisterResponse
 import dev.vmillet.chatterbox.services.AuthService
 import org.springframework.http.ResponseEntity
