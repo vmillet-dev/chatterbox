@@ -35,7 +35,7 @@ dependencies {
 
 kotlin {
 	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict", "-Xmx1G")
+		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
 }
 
