@@ -19,7 +19,7 @@ jobs:
         run: npm ci
         working-directory: ./frontend
       - name: Build Angular app
-        run: npm run build --configuration production
+        run: npm run build:production
         working-directory: ./frontend
       - name: Upload frontend artifact
         uses: actions/upload-artifact@v3
