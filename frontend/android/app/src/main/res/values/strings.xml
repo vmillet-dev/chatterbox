@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">chatter-box</string>
+    <string name="title_activity_main">chatter-box</string>
+    <string name="package_name">dev.vmillet.chatterbox</string>
+    <string name="custom_url_scheme">dev.vmillet.chatterbox</string>
+</resources>
