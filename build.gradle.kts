@@ -28,7 +28,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test:6.1.10")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.1")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:2.0.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
 }
