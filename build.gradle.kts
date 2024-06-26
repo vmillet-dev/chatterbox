@@ -30,6 +30,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.1")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:2.0.0")
+	testImplementation("com.h2database:h2")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
 }
 
@@ -47,9 +48,11 @@ sourceSets {
 
 	test {
 		java.srcDirs("backend/test/kotlin")
+		resources.srcDirs("backend/test/resources")
 	}
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("spring.profiles.active", "test")
 }
