@@ -9,7 +9,22 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "weekly"
+    groups:
+      angular:
+        applies-to: version-updates
+        patterns:
+          - "@angular*"
   - package-ecosystem: gradle
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      spring:
+        applies-to: version-updates
+        patterns:
+          - "org.springframework*"
+      kotlin:
+        applies-to: version-updates
+        patterns:
+          - "org.jetbrains.kotlin"
+          - "org.jetbrains.kotlin*"
