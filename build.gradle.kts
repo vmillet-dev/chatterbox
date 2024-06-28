@@ -1,8 +1,8 @@
 plugins {
+	alias(libs.plugins.springboot.framework)
+	alias(libs.plugins.springboot.dep.management)
 	alias(libs.plugins.kotlin.jvm)
 	alias(libs.plugins.kotlin.spring)
-	alias(libs.plugins.springboot.framework)
-	alias(libs.plugins.spring.dep.management)
 }
 
 group = "dev.vmillet"
@@ -19,22 +19,23 @@ repositories {
 }
 
 dependencies {
+	implementation(libs.springboot.tomcat)
 	implementation(libs.spring.autoconfigure)
-	implementation(libs.spring.web)
+	implementation(libs.spring.datajpa)
 	implementation(libs.spring.webmvc)
 	implementation(libs.spring.websocket)
-	implementation(libs.spring.data.jpa)
+	implementation(libs.spring.messaging)
 	implementation(libs.fasterxml.jackson)
-	implementation(libs.postgresql)
 	implementation(libs.kotlin.reflect)
-	implementation(libs.hibernate)
 	implementation(libs.jakarta.persistence)
+	implementation(libs.hibernate.core)
+	runtimeOnly(libs.postgresql)
 
 	testImplementation(libs.springboot.test)
 	testImplementation(libs.springboot.jdbc)
 	testImplementation(libs.kotlin.test)
-	testImplementation(libs.h2)
-	testRuntimeOnly(libs.junit.launcher)
+	testImplementation(libs.h2.database)
+	testRuntimeOnly(libs.junit.plateform.launcher)
 }
 
 kotlin {

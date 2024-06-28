@@ -1,35 +1,43 @@
 [versions]
+kotlin = "2.0.0"
 spring = "3.3.1"
 spring-web = "6.1.10"
 spring-dep-management = "1.1.5"
-kotlin = "2.0.0"
-postgresql = "42.7.3"
-fasterxml-jackson = "2.17.1"
+tomcat = "10.1.25"
+
 h2 = "2.2.224"
-junit-launcher = "1.10.2"
+postgres = "42.7.3"
 hibernate = "6.5.2.Final"
+
+fasterxml-jackson = "2.17.1"
+junit-launcher = "1.10.2"
 jakarta = "3.1.0"
 
 [libraries]
-springboot-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "spring" }
-springboot-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-jdbc", version.ref = "spring" }
-spring-autoconfigure = { group = "org.springframework.boot", name = "spring-boot-autoconfigure", version.ref = "spring" }
-spring-data-jpa = { group = "org.springframework.data", name = "spring-data-jpa", version.ref = "spring" }
-spring-web = { group = "org.springframework", name = "spring-web", version.ref = "spring-web" }
-spring-websocket = { group = "org.springframework", name = "spring-websocket", version.ref = "spring-web" }
-spring-webmvc = { group = "org.springframework", name = "spring-webmvc", version.ref = "spring-web" }
-postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
-h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
-fasterxml-jackson = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "fasterxml-jackson" }
-junit-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-launcher" }
-hibernate = { group = "org.hibernate.orm", name = "hibernate-core", version.ref = "hibernate" }
-jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakarta" }
+springboot-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "spring" }
+springboot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
+springboot-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "spring" }
+spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring" }
+spring-datajpa = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
+spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" } # ?
+spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring-web" }
+spring-websocket = { module = "org.springframework:spring-websocket", version.ref = "spring-web" }
+spring-messaging = { module = "org.springframework:spring-messaging", version.ref = "spring-web" }
+
+fasterxml-jackson = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "fasterxml-jackson" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+h2-database = { module = "com.h2database:h2", version.ref = "h2" }
+junit-plateform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-launcher" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta" }
+hibernate-core = { module = "org.hibernate.orm:hibernate-core", version.ref = "hibernate" }
+tomcat-embeded-core = { module = "org.apache.tomcat.embed:tomcat-embed-core", version.ref = "tomcat" }
+tomcat-embeded-el = { module = "org.apache.tomcat.embed:tomcat-embed-el", version.ref = "tomcat" }
+tomcat-embeded-websocket = { module = "org.apache.tomcat.embed:tomcat-embed-websocket", version.ref = "tomcat" }
 
 [plugins]
-springboot-framework = { id = "org.springframework.boot", version.ref = "spring"}
-spring-dep-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-management"}
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"}
-kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin"}
-
+springboot-framework = { id = "org.springframework.boot", version.ref = "spring" }
+springboot-dep-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-management" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
