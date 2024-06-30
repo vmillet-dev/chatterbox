@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./home/chat/chat.component').then(m => m.ChatComponent)
+    loadComponent: () => import('./home/canvas/canvas.component').then(m => m.CanvasComponent)
   },
   {
     path: 'auth',

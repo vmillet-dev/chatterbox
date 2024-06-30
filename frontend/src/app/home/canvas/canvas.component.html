@@ -1,0 +1,9 @@
+<canvas #canvas id="canvas" width="500" height="500"
+        (pointerdown)="onPointerDown($event)"
+        (pointermove)="onPointerMove($event)"
+        (pointerup)="onPointerUp()"
+        (pointerleave)="onPointerUp()"
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd()"
+        (touchcancel)="onTouchEnd()"></canvas>
