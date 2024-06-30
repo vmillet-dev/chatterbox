@@ -1,40 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+
+interface DragState {
+  x: number;
+  y: number;
+  offsetX: number;
+  offsetY: number;
+  squareId: number | null;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DragService {
-  private isDragging = false;
-  private dragOffset = { x: 0, y: 0 };
-  private dragStartSubject = new Subject<void>();
-  private dragMoveSubject = new Subject<{ x: number, y: number }>();
-  private dragEndSubject = new Subject<void>();
+  private dragState: DragState = { x: 0, y: 0, offsetX: 0, offsetY: 0, squareId: null };
+  private dragMoveSubject = new Subject<{ x: number; y: number }>();
+  private isDraggingSubject = new Subject<boolean>();
 
-  dragStart$ = this.dragStartSubject.asObservable();
-  dragMove$ = this.dragMoveSubject.asObservable();
-  dragEnd$ = this.dragEndSubject.asObservable();
-
-  startDrag(x: number, y: number, offsetX: number, offsetY: number): void {
-    this.isDragging = true;
-    this.dragOffset = { x: offsetX, y: offsetY };
-    this.dragStartSubject.next();
-    this.moveDrag(x, y);
+  get dragMove$(): Observable<{ x: number; y: number }> {
+    return this.dragMoveSubject.asObservable();
   }
 
-  moveDrag(x: number, y: number): void {
-    if (this.isDragging) {
-      this.dragMoveSubject.next({
-        x: x - this.dragOffset.x,
-        y: y - this.dragOffset.y
-      });
+  get isDragging$(): Observable<boolean> {
+    return this.isDraggingSubject.asObservable();
+  }
+
+  startDrag(x: number, y: number, offsetX: number, offsetY: number, squareId: number) {
+    this.dragState = { x, y, offsetX, offsetY, squareId };
+    this.isDraggingSubject.next(true);
+  }
+
+  moveDrag(x: number, y: number) {
+    if (this.dragState.squareId !== null) {
+      const newX = x - this.dragState.offsetX;
+      const newY = y - this.dragState.offsetY;
+      this.dragMoveSubject.next({ x: newX, y: newY });
     }
   }
 
-  endDrag(): void {
-    if (this.isDragging) {
-      this.isDragging = false;
-      this.dragEndSubject.next();
-    }
+  endDrag() {
+    this.isDraggingSubject.next(false);
+    this.dragState = { x: 0, y: 0, offsetX: 0, offsetY: 0, squareId: null };
+  }
+
+  get currentDragId(): number | null {
+    return this.dragState.squareId;
+  }
+
+  get isDragging(): boolean {
+    return this.dragState.squareId !== null;
   }
 }
