@@ -41,9 +41,10 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     { x: 200, y: 200, size: 50, id: 2, anchors: [] }
   ];
   private anchors: Anchor[] = [];
-  private selectedAnchors: Anchor[] = [];
   private lines: Line[] = [];
   private unsubscribe$ = new Subject<void>();
+  private dragStartAnchor: Anchor | null = null;
+  private tempLine: { start: Point; end: Point } | null = null;
 
   constructor(private dragService: DragService) {}
 
@@ -61,7 +62,6 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
             square.x = position.x;
             square.y = position.y;
             this.updateAnchors(square.id, position.x, position.y);
-            // this.updateLines();
             this.drawSquaresAndLines();
           }
         });
@@ -88,7 +88,6 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   private updateAnchors(squareId: number, newX: number, newY: number) {
     const square = this.squares.find(s => s.id === squareId);
     if (square) {
-      const halfSize = square.size / 2;
       square.anchors = [
         { id: `${square.id}-left`, squareId: square.id, x: square.x, y: square.y + square.size / 2 },
         { id: `${square.id}-right`, squareId: square.id, x: square.x + square.size, y: square.y + square.size / 2 },
@@ -99,42 +98,26 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  // private updateLines() {
-  //   this.lines = this.lines.map(line => ({
-  //     start: this.findUpdatedAnchor(line.start),
-  //     end: this.findUpdatedAnchor(line.end)
-  //   }));
-  // }
-
-  private findUpdatedAnchor(oldAnchor: Anchor): Anchor {
-    const square = this.squares.find(s => s.id === oldAnchor.squareId);
-    if (square) {
-      return square.anchors.find(anchor =>
-        this.getAnchorPosition(anchor, square) === this.getAnchorPosition(oldAnchor, square)
-      ) || oldAnchor;
-    }
-    return oldAnchor;
-  }
-
-  private getAnchorPosition(anchor: Anchor, square: Square): string {
-    if (anchor.x === square.x) return 'left';
-    if (anchor.x === square.x + square.size) return 'right';
-    if (anchor.y === square.y) return 'top';
-    if (anchor.y === square.y + square.size) return 'bottom';
-    return '';
-  }
-
-  private isSameAnchor(anchor1: Anchor, anchor2: Anchor): boolean {
-    return anchor1.squareId === anchor2.squareId && Math.abs(anchor1.x - anchor2.x) < 1 && Math.abs(anchor1.y - anchor2.y) < 1;
-  }
-
   private drawSquaresAndLines() {
     if (this.ctx) {
       this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
       this.lines.forEach(line => this.drawLine(line));
+      if (this.tempLine) {
+        this.drawTempLine(this.tempLine);
+      }
       this.squares.forEach(square => this.drawSquare(square));
       this.anchors.forEach(anchor => this.drawAnchor(anchor));
     }
+  }
+
+  private drawTempLine(line: { start: Point; end: Point }) {
+    this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+    this.ctx.setLineDash([5, 5]);
+    this.ctx.beginPath();
+    this.ctx.moveTo(line.start.x, line.start.y);
+    this.ctx.lineTo(line.end.x, line.end.y);
+    this.ctx.stroke();
+    this.ctx.setLineDash([]);
   }
 
   private drawSquare(square: Square) {
@@ -178,54 +161,60 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private selectAnchor(clientX: number, clientY: number) {
-    const rect = this.canvas.nativeElement.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    const selectedAnchor = this.anchors.find(anchor =>
-      Math.abs(anchor.x - x) < 5 && Math.abs(anchor.y - y) < 5
-    );
-    if (selectedAnchor) {
-      if (this.selectedAnchors.length === 1 && this.selectedAnchors[0].squareId === selectedAnchor.squareId) {
-        // Don't allow connecting anchors from the same square
-        return;
-      }
-      this.selectedAnchors.push(selectedAnchor);
-      if (this.selectedAnchors.length === 2) {
-        this.lines.push({
-          startAnchorId: this.selectedAnchors[0].id,
-          endAnchorId: this.selectedAnchors[1].id
-        });
-        this.selectedAnchors = [];
-      }
-      this.drawSquaresAndLines();
-    }
-  }
-
   onPointerDown(event: PointerEvent) {
     const rect = this.canvas.nativeElement.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    for (const anchor of this.anchors) {
-      if (Math.abs(anchor.x - x) < 5 && Math.abs(anchor.y - y) < 5) {
-        this.selectAnchor(event.clientX, event.clientY);
-        return;
-      }
-    }
+    const clickedAnchor = this.anchors.find(anchor =>
+      Math.abs(anchor.x - x) < 5 && Math.abs(anchor.y - y) < 5
+    );
 
-    this.startDrag(event.clientX, event.clientY);
+    if (clickedAnchor) {
+      this.dragStartAnchor = clickedAnchor;
+      this.tempLine = { start: { x: clickedAnchor.x, y: clickedAnchor.y }, end: { x, y } };
+    } else {
+      this.startDrag(event.clientX, event.clientY);
+    }
   }
 
   onPointerMove(event: PointerEvent) {
+    const rect = this.canvas.nativeElement.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
     if (this.dragService.isDragging) {
-      const rect = this.canvas.nativeElement.getBoundingClientRect();
-      this.dragService.moveDrag(event.clientX - rect.left, event.clientY - rect.top);
+      this.dragService.moveDrag(x, y);
+    } else if (this.dragStartAnchor && this.tempLine) {
+      this.tempLine.end = { x, y };
+      this.drawSquaresAndLines();
     }
   }
 
   onPointerUp(event: PointerEvent) {
-    this.dragService.endDrag();
+    const rect = this.canvas.nativeElement.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    if (this.dragStartAnchor) {
+      const endAnchor = this.anchors.find(anchor =>
+        Math.abs(anchor.x - x) < 5 && Math.abs(anchor.y - y) < 5
+      );
+
+      if (endAnchor && endAnchor.squareId !== this.dragStartAnchor.squareId) {
+        this.lines.push({
+          startAnchorId: this.dragStartAnchor.id,
+          endAnchorId: endAnchor.id
+        });
+      }
+
+      this.dragStartAnchor = null;
+      this.tempLine = null;
+      this.drawSquaresAndLines();
+    } else {
+      this.dragService.endDrag();
+    }
+
     this.canvas.nativeElement.releasePointerCapture(event.pointerId);
   }
 }
