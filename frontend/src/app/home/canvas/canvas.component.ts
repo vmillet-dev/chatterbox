@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
+import {Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, ChangeDetectorRef, NgZone} from '@angular/core';
 import {DragService} from "../../shared/services/drag.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../../shared/services/canvas.service";
@@ -16,7 +16,9 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private dragService: DragService,
-    private canvasService: CanvasService
+    private canvasService: CanvasService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngAfterViewInit(): void {
@@ -26,12 +28,15 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       this.canvasService.initAnchors();
       this.canvasService.drawAll();
 
-      this.dragService.dragMove$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe(position => {
-          this.canvasService.updateSquarePosition(this.dragService.currentDragId!, position.x, position.y);
-          this.canvasService.drawAll();
-        });
+      this.ngZone.runOutsideAngular(() => {
+        this.dragService.dragMove$
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(position => {
+            this.canvasService.updateSquarePosition(this.dragService.currentDragId!, position.x, position.y);
+            this.canvasService.drawAll();
+            this.cdr.detectChanges();
+          });
+      });
     }
   }
 
@@ -41,48 +46,57 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   onPointerDown(event: PointerEvent): void {
-    const { x, y } = this.getCanvasCoordinates(event);
-    const clickedAnchor = this.canvasService.findClickedAnchor(x, y);
+    this.ngZone.runOutsideAngular(() => {
+      const { x, y } = this.getCanvasCoordinates(event);
+      const clickedAnchor = this.canvasService.findClickedAnchor(x, y);
 
-    if (clickedAnchor) {
-      this.canvasService.startLineDrag(clickedAnchor, x, y);
-    } else {
-      const square = this.canvasService.findClickedSquare(x, y);
-      if (square) {
-        const offsetX = x - square.x;
-        const offsetY = y - square.y;
-        this.dragService.startDrag(x, y, offsetX, offsetY, square.id);
-        this.canvas.nativeElement.setPointerCapture(event.pointerId);
+      if (clickedAnchor) {
+        this.canvasService.startLineDrag(clickedAnchor, x, y);
+      } else {
+        const square = this.canvasService.findClickedSquare(x, y);
+        if (square) {
+          const offsetX = x - square.x;
+          const offsetY = y - square.y;
+          this.dragService.startDrag(x, y, offsetX, offsetY, square.id);
+          this.canvas.nativeElement.setPointerCapture(event.pointerId);
+        }
       }
-    }
+      this.cdr.detectChanges();
+    });
   }
 
   onPointerMove(event: PointerEvent): void {
-    const { x, y } = this.getCanvasCoordinates(event);
+    this.ngZone.runOutsideAngular(() => {
+      const { x, y } = this.getCanvasCoordinates(event);
 
-    if (this.dragService.isDragging) {
-      this.dragService.moveDrag(x, y);
-    } else if (this.canvasService.isLineDragging) {
-      this.canvasService.updateTempLine(x, y);
-      this.canvasService.drawAll();
-    }
+      if (this.dragService.isDragging) {
+        this.dragService.moveDrag(x, y);
+      } else if (this.canvasService.isLineDragging) {
+        this.canvasService.updateTempLine(x, y);
+        this.canvasService.drawAll();
+      }
+      this.cdr.detectChanges();
+    });
   }
 
   onPointerUp(event: PointerEvent): void {
-    const { x, y } = this.getCanvasCoordinates(event);
+    this.ngZone.runOutsideAngular(() => {
+      const { x, y } = this.getCanvasCoordinates(event);
 
-    if (this.canvasService.isLineDragging) {
-      const endAnchor = this.canvasService.findClickedAnchor(x, y);
-      if (endAnchor) {
-        this.canvasService.createLine(endAnchor);
+      if (this.canvasService.isLineDragging) {
+        const endAnchor = this.canvasService.findClickedAnchor(x, y);
+        if (endAnchor) {
+          this.canvasService.createLine(endAnchor);
+        }
+        this.canvasService.endLineDrag();
+        this.canvasService.drawAll();
+      } else {
+        this.dragService.endDrag();
       }
-      this.canvasService.endLineDrag();
-      this.canvasService.drawAll();
-    } else {
-      this.dragService.endDrag();
-    }
 
-    this.canvas.nativeElement.releasePointerCapture(event.pointerId);
+      this.canvas.nativeElement.releasePointerCapture(event.pointerId);
+      this.cdr.detectChanges();
+    });
   }
 
   private getCanvasCoordinates(event: PointerEvent): { x: number; y: number } {
