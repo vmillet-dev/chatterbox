@@ -21,10 +21,6 @@ export class DragService {
     return this.dragMoveSubject.asObservable();
   }
 
-  get isDragging$(): Observable<boolean> {
-    return this.isDraggingSubject.asObservable();
-  }
-
   startDrag(x: number, y: number, offsetX: number, offsetY: number, squareId: number) {
     this.dragState = { x, y, offsetX, offsetY, squareId };
     this.isDraggingSubject.next(true);

@@ -5,7 +5,7 @@ interface Point {
   y: number;
 }
 
-interface Square {
+export interface Block {
   x: number;
   y: number;
   size: number;
@@ -13,9 +13,9 @@ interface Square {
   anchors: Anchor[];
 }
 
-interface Anchor {
+export interface Anchor {
   id: string;
-  squareId: number;
+  blockId: number;
   x: number;
   y: number;
 }
@@ -32,7 +32,7 @@ export class CanvasService {
   private ctx!: CanvasRenderingContext2D;
   private canvasWidth!: number;
   private canvasHeight!: number;
-  private squares: Square[] = [
+  private blocks: Block[] = [
     { x: 50, y: 50, size: 50, id: 1, anchors: [] },
     { x: 200, y: 200, size: 50, id: 2, anchors: [] }
   ];
@@ -48,19 +48,19 @@ export class CanvasService {
   }
 
   initAnchors(): void {
-    this.squares.forEach(square => {
-      square.anchors = this.createAnchorsForSquare(square);
+    this.blocks.forEach(block => {
+      block.anchors = this.createAnchorsForBlock(block);
     });
-    this.anchors = this.squares.flatMap(square => square.anchors);
+    this.anchors = this.blocks.flatMap(block => block.anchors);
   }
 
-  updateSquarePosition(squareId: number, newX: number, newY: number): void {
-    const square = this.squares.find(s => s.id === squareId);
-    if (square) {
-      square.x = newX;
-      square.y = newY;
-      square.anchors = this.createAnchorsForSquare(square);
-      this.anchors = this.squares.flatMap(s => s.anchors);
+  updateBlockPosition(blockId: number, newX: number, newY: number): void {
+    const block = this.blocks.find(b => b.id === blockId);
+    if (block) {
+      block.x = newX;
+      block.y = newY;
+      block.anchors = this.createAnchorsForBlock(block);
+      this.anchors = this.blocks.flatMap(b => b.anchors);
     }
   }
 
@@ -71,7 +71,7 @@ export class CanvasService {
       if (this.tempLine) {
         this.drawTempLine(this.tempLine);
       }
-      this.squares.forEach(square => this.drawSquare(square));
+      this.blocks.forEach(block => this.drawBlock(block));
       this.anchors.forEach(anchor => this.drawAnchor(anchor));
     }
   }
@@ -82,10 +82,10 @@ export class CanvasService {
     );
   }
 
-  findClickedSquare(x: number, y: number): Square | undefined {
-    return this.squares.find(square =>
-      x > square.x && x < square.x + square.size &&
-      y > square.y && y < square.y + square.size
+  findClickedBlock(x: number, y: number): Block | undefined {
+    return this.blocks.find(block =>
+      x > block.x && x < block.x + block.size &&
+      y > block.y && y < block.y + block.size
     );
   }
 
@@ -101,7 +101,7 @@ export class CanvasService {
   }
 
   createLine(endAnchor: Anchor): void {
-    if (this.dragStartAnchor && this.dragStartAnchor.squareId !== endAnchor.squareId) {
+    if (this.dragStartAnchor && this.dragStartAnchor.blockId !== endAnchor.blockId) {
       this.lines.push({
         startAnchorId: this.dragStartAnchor.id,
         endAnchorId: endAnchor.id
@@ -118,12 +118,16 @@ export class CanvasService {
     return this.dragStartAnchor !== null;
   }
 
-  private createAnchorsForSquare(square: Square): Anchor[] {
+  getBlocks(): Block[] {
+    return this.blocks;
+  }
+
+  private createAnchorsForBlock(block: Block): Anchor[] {
     return [
-      { id: `${square.id}-left`, squareId: square.id, x: square.x, y: square.y + square.size / 2 },
-      { id: `${square.id}-right`, squareId: square.id, x: square.x + square.size, y: square.y + square.size / 2 },
-      { id: `${square.id}-top`, squareId: square.id, x: square.x + square.size / 2, y: square.y },
-      { id: `${square.id}-bottom`, squareId: square.id, x: square.x + square.size / 2, y: square.y + square.size }
+      { id: `${block.id}-left`, blockId: block.id, x: block.x, y: block.y + block.size / 2 },
+      { id: `${block.id}-right`, blockId: block.id, x: block.x + block.size, y: block.y + block.size / 2 },
+      { id: `${block.id}-top`, blockId: block.id, x: block.x + block.size / 2, y: block.y },
+      { id: `${block.id}-bottom`, blockId: block.id, x: block.x + block.size / 2, y: block.y + block.size }
     ];
   }
 
@@ -137,9 +141,9 @@ export class CanvasService {
     this.ctx.setLineDash([]);
   }
 
-  private drawSquare(square: Square): void {
+  private drawBlock(block: Block): void {
     this.ctx.fillStyle = 'blue';
-    this.ctx.fillRect(square.x, square.y, square.size, square.size);
+    this.ctx.fillRect(block.x, block.y, block.size, block.size);
   }
 
   private drawLine(line: Line): void {

@@ -1,4 +1,12 @@
 <canvas #canvas width="800" height="600"
         (pointerdown)="onPointerDown($event)"
         (pointermove)="onPointerMove($event)"
-        (pointerup)="onPointerUp($event)"></canvas>
+        (pointerup)="onPointerUp($event)">
+</canvas>
+<app-block *ngFor="let block of blocks"
+           [x]="block.x"
+           [y]="block.y"
+           [size]="block.size"
+           [id]="block.id"
+           (anchorClicked)="onAnchorClicked($event)">
+</app-block>
