@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {SharedModule} from "../../shared/shared.module";
 import {RegisterDto} from "../../shared/dto/register.dto";
 import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-    imports: [
-      FormsModule,
-      ReactiveFormsModule,
-      SharedModule
-    ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [AuthService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

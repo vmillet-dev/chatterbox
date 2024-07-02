@@ -12,11 +12,13 @@ hibernate = "6.5.2.Final"
 fasterxml-jackson = "2.17.1"
 junit-launcher = "1.10.2"
 jakarta = "3.1.0"
+yaml = "2.2"
+hikaricp = "5.1.0"
 
 [libraries]
 springboot-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "spring" }
 springboot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
-springboot-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "spring" }
+springboot-logging = { module = "org.springframework.boot:spring-boot-starter-logging", version.ref = "spring" }
 spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring" }
 spring-datajpa = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
 spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" } # ?
@@ -32,9 +34,8 @@ junit-plateform-launcher = { module = "org.junit.platform:junit-platform-launche
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
 jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta" }
 hibernate-core = { module = "org.hibernate.orm:hibernate-core", version.ref = "hibernate" }
-tomcat-embeded-core = { module = "org.apache.tomcat.embed:tomcat-embed-core", version.ref = "tomcat" }
-tomcat-embeded-el = { module = "org.apache.tomcat.embed:tomcat-embed-el", version.ref = "tomcat" }
-tomcat-embeded-websocket = { module = "org.apache.tomcat.embed:tomcat-embed-websocket", version.ref = "tomcat" }
+yaml-snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "yaml" }
+zaxxer-hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 
 [plugins]
 springboot-framework = { id = "org.springframework.boot", version.ref = "spring" }

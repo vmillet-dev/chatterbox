@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	implementation(libs.springboot.logging)
 	implementation(libs.springboot.tomcat)
 	implementation(libs.spring.autoconfigure)
 	implementation(libs.spring.datajpa)
@@ -29,10 +30,11 @@ dependencies {
 	implementation(libs.kotlin.reflect)
 	implementation(libs.jakarta.persistence)
 	implementation(libs.hibernate.core)
+	implementation(libs.yaml.snakeyaml)
+	implementation(libs.zaxxer.hikaricp)
 	runtimeOnly(libs.postgresql)
 
 	testImplementation(libs.springboot.test)
-	testImplementation(libs.springboot.jdbc)
 	testImplementation(libs.kotlin.test)
 	testImplementation(libs.h2.database)
 	testRuntimeOnly(libs.junit.plateform.launcher)
