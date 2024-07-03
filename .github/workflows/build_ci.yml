@@ -119,6 +119,7 @@ jobs:
         uses: android-actions/setup-android@v2
       - name: Build APK
         run: |
+          npm i
           npx cap sync android
           cd android
           ./gradlew assembleDebug
