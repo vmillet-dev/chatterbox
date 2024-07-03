@@ -1,1 +1,138 @@
-<p>home works!</p>
+<div class="homepage">
+<!--  <section class="hero">-->
+<!--    <div class="hero-content">-->
+<!--      <div class="glitch-container">-->
+<!--        <h1 class="glitch" data-text="DevBoost">DevBoost</h1>-->
+<!--      </div>-->
+<!--      <p class="tagline">Supercharge your development workflow</p>-->
+<!--      <div class="feature-pills">-->
+<!--        <span class="pill">Smart Automation</span>-->
+<!--        <span class="pill">AI-Powered Coding</span>-->
+<!--        <span class="pill">Team Collaboration</span>-->
+<!--        <span class="pill">Performance Analytics</span>-->
+<!--      </div>-->
+<!--      <div class="cta-container">-->
+<!--        <a class="cta-button pulse">Start Boosting</a>-->
+<!--        <a class="cta-button outline">Watch Demo</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="hero-visual">-->
+<!--      <div class="code-window">-->
+<!--        <div class="window-header">-->
+<!--          <span class="dot"></span>-->
+<!--          <span class="dot"></span>-->
+<!--          <span class="dot"></span>-->
+<!--        </div>-->
+<!--        <pre><code id="animatedCode"></code></pre>-->
+<!--      </div>-->
+<!--      <div class="productivity-meter">-->
+<!--        <div class="meter-label">Productivity Boost</div>-->
+<!--        <div class="meter">-->
+<!--          <div class="meter-bar"></div>-->
+<!--        </div>-->
+<!--        <div class="meter-value">0%</div>-->
+<!--      </div>-->
+<!--      <div class="floating-tech">-->
+<!--        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">-->
+<!--        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">-->
+<!--        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">-->
+<!--        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="hero-background"></div>-->
+<!--  </section>-->
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="glitch-container">
+        <h1 class="glitch" data-text="DevBoost">DevBoost</h1>
+      </div>
+      <p class="tagline">Supercharge your development workflow</p>
+      <div class="feature-pills">
+        <span class="pill">Smart Automation</span>
+        <span class="pill">AI-Powered Coding</span>
+        <span class="pill">Team Collaboration</span>
+        <span class="pill">Performance Analytics</span>
+      </div>
+      <div class="cta-container">
+        <a href="#" class="cta-button pulse">Start Boosting</a>
+        <a href="#" class="cta-button outline">Watch Demo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-window">
+        <div class="window-header">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <pre><code id="animatedCode">const message = "Hello, World!";</code></pre>
+      </div>
+      <div class="productivity-meter">
+        <div class="meter-label">Productivity Boost</div>
+        <div class="meter">
+          <div class="meter-bar"></div>
+        </div>
+        <div class="meter-value">0%</div>
+      </div>
+      <div class="floating-tech">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="AngularJS">
+      </div>
+    </div>
+    <div class="hero-background"></div>
+  </section>
+
+
+  <section class="features">
+    <h2>Empower Your Workflow</h2>
+    <div class="feature-grid">
+      <div class="feature-card" *ngFor="let feature of features; let i = index"
+           [style.animation-delay]="i * 0.1 + 's'">
+        <div class="feature-icon" [style.background-image]="'url(' + feature.icon + ')'"></div>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-wave">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#0099ff" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,128C672,107,768,117,864,144C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+  </section>
+
+  <section class="showcase">
+    <h2>CodeSync in Action</h2>
+    <div class="carousel">
+      <ng-container *ngFor="let slide of carouselSlides; let i = index">
+        <img [src]="slide.image" [alt]="slide.alt" [class.active]="i === currentSlide">
+      </ng-container>
+      <button class="carousel-button prev" (click)="prevSlide()">❮</button>
+      <button class="carousel-button next" (click)="nextSlide()">❯</button>
+    </div>
+  </section>
+
+  <section class="productivity-boost">
+    <div class="boost-content">
+      <h2>Boost Your Productivity</h2>
+      <div class="stat-container">
+        <div class="stat" *ngFor="let stat of productivityStats">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="boost-image" [style.background-image]="'url(https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)'"></div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Synchronize Your Development?</h2>
+    <a class="cta-button pulse">Start Free Trial</a>
+  </section>
+</div>
