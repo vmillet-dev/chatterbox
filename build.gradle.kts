@@ -58,7 +58,12 @@ sourceSets {
 	}
 }
 
+tasks.processResources  {
+	from("frontend/dist/browser") {
+		into("static")
+	}
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
-	systemProperty("spring.profiles.active", "test")
 }

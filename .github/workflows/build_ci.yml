@@ -102,6 +102,11 @@ jobs:
         with:
           name: backend-jar
           path: build/libs
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-dist
+          path: frontend/dist
       - name: Build Spring Boot jar
         run: ./gradlew bootJar
 
