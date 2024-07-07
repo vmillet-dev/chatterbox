@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
+import {TranslocoTestingModule} from "@jsverse/transloco";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
+        TranslocoTestingModule.forRoot({}),
         AppComponent],
     }).compileComponents();
   });

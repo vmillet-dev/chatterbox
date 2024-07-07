@@ -3,31 +3,31 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h3 class="mb-0">User Registration</h3>
+          <h3 class="mb-0" data-test="register-title">User Registration</h3>
         </div>
         <div class="card-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" data-test="register-form">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email" required>
+              <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email" required data-test="email-input">
             </div>
 
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" formControlName="username" placeholder="Choose a username" required>
+              <input type="text" class="form-control" id="username" formControlName="username" placeholder="Choose a username" required data-test="username-input">
             </div>
 
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required data-test="password-input">
             </div>
 
             <div class="mb-3">
               <label for="confirmPassword" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm your password" required>
+              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm your password" required data-test="confirm-password-input">
             </div>
 
-            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Register</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid" data-test="submit-button">Register</button>
           </form>
         </div>
       </div>
