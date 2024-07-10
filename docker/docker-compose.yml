@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    depends_on:
+      - db
+    container_name: app
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - '80:80'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/chatterbox_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+  db:
+    image: postgres:15
+    container_name: db
+    environment:
+      - POSTGRES_DB=chatterbox_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
