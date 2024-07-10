@@ -124,7 +124,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }} . -f docker/Dockerfile
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }}
 
