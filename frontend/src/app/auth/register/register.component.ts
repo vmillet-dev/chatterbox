@@ -18,7 +18,6 @@ import {AuthService} from "../../shared/services/auth.service";
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -53,7 +52,7 @@ export class RegisterComponent {
         complete: () => console.info('complete')
       });
     }
-  }
+  };
 
   passwordMatchValidator: ValidatorFn = (control: AbstractControl): {[key: string]: any} | null => {
     const password = control.get('password');

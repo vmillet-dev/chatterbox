@@ -23,7 +23,7 @@ describe('AuthService', () => {
     // THEN
     verify(apiService.post(
       'auth/register',
-      deepEqual({email:"mail@toto.fr",username:"testuser",password:"password123"}))
+      deepEqual({ email:"mail@toto.fr", username:"testuser", password:"password123"}))
     ).once();
   });
 

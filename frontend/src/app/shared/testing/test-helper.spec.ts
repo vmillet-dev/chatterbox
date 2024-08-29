@@ -1,7 +1,6 @@
 import { TestHelper } from './test-helper';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import spyOn = jest.spyOn;
+import {Component, provideExperimentalZonelessChangeDetection} from '@angular/core';
 
 @Component({
   template: `
@@ -22,7 +21,10 @@ describe('TestHelper', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent]
+      declarations: [TestComponent],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+      ]
     });
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;

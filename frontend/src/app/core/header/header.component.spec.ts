@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import {RouterModule} from "@angular/router";
@@ -6,28 +6,32 @@ import {LocalStorageService} from "../../shared/services/local-storage.service";
 import {anyString, instance, mock, verify, when} from "@johanblumenberg/ts-mockito";
 import {getTranslocoModule} from "../../shared/testing/transloco-testing.module";
 import {TestHelper} from "../../shared/testing/test-helper";
+import {provideExperimentalZonelessChangeDetection} from "@angular/core";
 
 describe('HeaderComponent', (): void => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let localStorageService: LocalStorageService;
 
-  beforeEach(waitForAsync ((): void => {
+  beforeEach(async () => {
     localStorageService = mock(LocalStorageService);
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
         getTranslocoModule()
       ],
       providers: [
+        provideExperimentalZonelessChangeDetection(),
         { provide: LocalStorageService, useValue: instance(localStorageService) }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
+    await fixture.whenStable();
+
     component = fixture.componentInstance;
-  }));
+  });
 
   describe('TypeScript', (): void => {
     it('should initialize languages array correctly', (): void => {
@@ -45,8 +49,7 @@ describe('HeaderComponent', (): void => {
       // GIVEN
       when(localStorageService.getData(anyString())).thenReturn('fr');
 
-      // WHEN
-      fixture.detectChanges();
+      component.ngOnInit();
 
       // THEN
       expect(component.currentLanguage).toEqual({ code: 'fr', name: 'Français', flag: '🇫🇷' });
@@ -57,7 +60,7 @@ describe('HeaderComponent', (): void => {
       when(localStorageService.getData(anyString())).thenReturn(null);
 
       // WHEN
-      fixture.detectChanges();
+      component.ngOnInit();
 
       // THEN
       expect(component.currentLanguage).toEqual({ code: 'en', name: 'English', flag: '🇬🇧' });
@@ -139,7 +142,7 @@ describe('HeaderComponent', (): void => {
 
     it('should call changeLanguage when a language option is clicked', (): void => {
       // GIVEN
-      const changeLanguageSpy = jest.spyOn(component, 'changeLanguage');
+      const changeLanguageSpy = spyOn(component, 'changeLanguage');
       fixture.detectChanges();
 
       // WHEN
@@ -155,7 +158,7 @@ describe('HeaderComponent', (): void => {
       const expectedRoutes = ['/', '/dashboard', '/auth/login', '/auth/register'];
 
       // WHEN
-      fixture.detectChanges();
+      component.ngOnInit();
 
       // THEN
       const routerLinks = TestHelper.getAttributesBySelector(fixture, '[routerLink]');

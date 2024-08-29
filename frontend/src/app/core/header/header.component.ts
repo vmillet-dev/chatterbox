@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
+import packageInfo  from '../../../../package.json'
+import {UtilService} from "../../shared/services/util.service";
 
 @Component({
   selector: 'app-header',
@@ -19,6 +21,7 @@ export class HeaderComponent implements OnInit{
     { code: 'fr', name: 'Français', flag: '🇫🇷' }
   ];
   currentLanguage: { code: string; flag: string; name: string } = this.languages[0];
+  appName = UtilService.toCapitalize(packageInfo.name);
 
   constructor(private translocoService: TranslocoService, private localStorageService: LocalStorageService) {}
 

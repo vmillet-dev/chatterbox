@@ -1,33 +1,32 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
-import {provideHttpClient} from "@angular/common/http";
-import {provideHttpClientTesting} from "@angular/common/http/testing";
 import {TestHelper} from "../../shared/testing/test-helper";
 import {AuthService} from "../../shared/services/auth.service";
-import {anything, instance, mock, verify} from "@johanblumenberg/ts-mockito";
-import spyOn = jest.spyOn;
+import {of} from "rxjs";
+import {anything, deepEqual, instance, mock, verify, when} from "@johanblumenberg/ts-mockito";
+import {provideExperimentalZonelessChangeDetection} from "@angular/core";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authService: AuthService;
 
-  beforeEach(waitForAsync (() => {
+  beforeEach(async () => {
     authService = mock(AuthService);
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
+        provideExperimentalZonelessChangeDetection(),
         { provide: AuthService, useValue: instance(authService) }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterComponent);
+    await fixture.whenStable();
+
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  });
 
   describe('Typescript', () => {
     it('should initialize form with empty fields', () => {
@@ -65,23 +64,26 @@ describe('RegisterComponent', () => {
       expect(component.registerForm.valid).toBeFalsy();
     });
 
-    // TODO debug
-    // it('should call authService.registerUser when form is valid and submitted', fakeAsync(() => {
-    //   // GIVEN
-    //   when(authService.registerUser(anything())).thenReturn(of({}));
-    //   component.registerForm.patchValue({
-    //     email: 'test@example.com',
-    //     username: 'testuser',
-    //     password: 'password123',
-    //     confirmPassword: 'password123'
-    //   });
-    //
-    //   // WHEN
-    //   component.onSubmit();
-    //
-    //   // THEN
-    //   verify(authService.registerUser(anything())).once();
-    // }));
+    it('should call authService.registerUser when form is valid and submitted', () => {
+      // GIVEN
+      when(authService.registerUser(anything())).thenReturn(of({}));
+      component.registerForm.patchValue({
+        email: 'test@example.com',
+        username: 'testuser',
+        password: 'password123',
+        confirmPassword: 'password123'
+      });
+
+      // WHEN
+      component.onSubmit();
+
+      // THEN
+      verify(authService.registerUser(deepEqual({
+        email: 'test@example.com',
+        username: 'testuser',
+        password: 'password123'
+      }))).once();
+    });
 
     it('should not call authService.registerUser when form is invalid', () => {
       // WHEN
@@ -92,7 +94,6 @@ describe('RegisterComponent', () => {
     });
   });
 
-  // Template tests
   describe('Template', () => {
     it('should have the correct title', () => {
       // WHEN
