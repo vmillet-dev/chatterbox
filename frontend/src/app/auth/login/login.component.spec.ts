@@ -10,7 +10,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule()],
+      imports: [
+        LoginComponent,
+        getTranslocoModule()
+      ],
       providers:[
         provideExperimentalZonelessChangeDetection(),
       ]
@@ -18,11 +21,24 @@ describe('LoginComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
+    await fixture.whenStable();
+
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('Typescript', () => {
+    it('should submit form successfully', () => {
+      // GIVEN
+      component .loginForm.patchValue({
+        usernameOrEmail: 'email@toto.fr',
+        password: 'toto123456789'
+      });
+
+      // WHEN
+      component.onSubmit();
+
+      // THEN
+      expect(component.formValidation).toBeTrue();
+    });
+  })
 });

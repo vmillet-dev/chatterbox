@@ -21,10 +21,7 @@ describe('AuthService', () => {
     service.registerUser(registerDto);
 
     // THEN
-    verify(apiService.post(
-      'auth/register',
-      deepEqual({ email:"mail@toto.fr", username:"testuser", password:"password123"}))
-    ).once();
+    verify(apiService.post('auth/register', deepEqual({ email:"mail@toto.fr", username:"testuser", password:"password123"}))).once();
   });
 
   it('should call apiService.post with correct parameters when login', () => {
@@ -35,9 +32,6 @@ describe('AuthService', () => {
     service.loginUser(loginDto);
 
     // THEN
-    verify(apiService.post(
-      'auth/login',
-      deepEqual({ usernameOrEmail: "testuser", password: "password123" }))
-    ).once();
+    verify(apiService.post('auth/login', deepEqual({ usernameOrEmail: "testuser", password: "password123" }))).once();
   });
 });

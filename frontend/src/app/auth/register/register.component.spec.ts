@@ -17,7 +17,10 @@ describe('RegisterComponent', () => {
     authService = mock(AuthService);
 
     await TestBed.configureTestingModule({
-      imports: [getTranslocoModule()],
+      imports: [
+        RegisterComponent,
+        getTranslocoModule()
+      ],
       providers: [
         provideExperimentalZonelessChangeDetection(),
         { provide: AuthService, useValue: instance(authService) }

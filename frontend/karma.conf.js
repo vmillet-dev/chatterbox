@@ -31,7 +31,7 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['spec', 'kjhtml'],
+    reporters: ['spec', 'kjhtml', 'coverage'],
     specReporter: {
       showSpecTiming: true
     },
@@ -42,8 +42,8 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     singleRun: true,
     restartOnFileChange: true,
-    customLaunchers:{
-      HeadlessChrome:{
+    customLaunchers: {
+      HeadlessChrome: {
         base: 'ChromeHeadless',
         flags: [
           '--no-sandbox'

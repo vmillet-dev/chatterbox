@@ -1,5 +1,5 @@
 import { ApiService } from './api.service';
-import {anything, instance, mock, verify} from "@johanblumenberg/ts-mockito";
+import {anything, deepEqual, instance, mock, verify} from "@johanblumenberg/ts-mockito";
 import { HttpClient } from "@angular/common/http";
 
 describe('ApiService', () => {
@@ -31,7 +31,7 @@ describe('ApiService', () => {
     service.post(endpoint, data);
 
     // THEN
-    verify(httpClient.post('/api/test', data)).once();
+    verify(httpClient.post('/api/test', deepEqual({ key: 'value' }))).once();
   });
 
   it('should call http.put with correct URL and data', () => {
@@ -43,7 +43,7 @@ describe('ApiService', () => {
     service.put(endpoint, data);
 
     // THEN
-    verify(httpClient.put('/api/test', data)).once();
+    verify(httpClient.put('/api/test', deepEqual({ key: 'value' }))).once();
   });
 
   it('should call http.delete with correct URL', () => {
@@ -65,7 +65,7 @@ describe('ApiService', () => {
     const headers = service.setAuthHeader(token);
 
     // THEN
-    expect(headers.get('Authorization')).toBe(`Bearer ${token}`);
+    expect(headers.get('Authorization')).toBe(`Bearer test_token`);
   });
 
   it('should call http.get with correct URL and headers', () => {
