@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslocoPipe
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

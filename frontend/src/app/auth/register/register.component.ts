@@ -10,14 +10,16 @@ import {
 } from "@angular/forms";
 import {RegisterDto} from "../../shared/dto/register.dto";
 import {AuthService} from "../../shared/services/auth.service";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        TranslocoPipe
+    ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

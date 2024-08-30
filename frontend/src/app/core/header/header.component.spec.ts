@@ -49,6 +49,7 @@ describe('HeaderComponent', (): void => {
       // GIVEN
       when(localStorageService.getData(anyString())).thenReturn('fr');
 
+      // WHEN
       component.ngOnInit();
 
       // THEN

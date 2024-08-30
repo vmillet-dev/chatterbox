@@ -1,5 +1,27 @@
 {
-  "btn_dashboard": "Tableau de bord",
-  "btn_login": "Connexion",
-  "btn_register": "S'inscrire"
+  "header": {
+    "btn_dashboard": "Tableau de bord",
+    "btn_login": "Connexion",
+    "btn_register": "S'inscrire"
+  },
+  "login": {
+    "btn_submit": "Se connecter",
+    "form_label": "Se connecter",
+    "input_label_password": "Mot de passe",
+    "input_label_username": "Email ou pseudo",
+    "input_placeholder_password": "Entrer votre mot de passe",
+    "input_placeholder_username": "Entrer votre pseudo ou votre email"
+  },
+  "register": {
+    "btn_submit": "S'inscrire",
+    "form_label": "Inscription",
+    "input_label_confirm_password": "Confirmer votre mot de passe",
+    "input_label_email": "Email",
+    "input_label_password": "Mot de passe",
+    "input_label_username": "Pseudo",
+    "input_placeholder_confirm_password": "Confirmez votre mot de passe",
+    "input_placeholder_email": "Entrer votre email",
+    "input_placeholder_password": "Entrez votre mot de passe",
+    "input_placeholder_username": "Choisissez votre pseudo"
+  }
 }

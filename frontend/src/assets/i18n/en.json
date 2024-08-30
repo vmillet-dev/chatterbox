@@ -1,5 +1,27 @@
 {
-  "btn_dashboard": "Dashboard",
-  "btn_login": "Login",
-  "btn_register": "Register"
+  "header": {
+    "btn_dashboard": "Dashboard",
+    "btn_login": "Login",
+    "btn_register": "Register"
+  },
+  "login": {
+    "btn_submit": "Login",
+    "form_label": "Login",
+    "input_label_password": "Password",
+    "input_label_username": "Username or Email",
+    "input_placeholder_password": "Enter your password",
+    "input_placeholder_username": "Enter your username or email"
+  },
+  "register": {
+    "btn_submit": "Register",
+    "form_label": "User Registration",
+    "input_label_confirm_password": "Confirm password",
+    "input_label_email": "Email",
+    "input_label_password": "Password",
+    "input_label_username": "Username",
+    "input_placeholder_confirm_password": "Confirm your password",
+    "input_placeholder_email": "Enter your email",
+    "input_placeholder_password": "Enter your password",
+    "input_placeholder_username": "Choose a username"
+  }
 }

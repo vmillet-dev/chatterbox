@@ -6,6 +6,7 @@ import {AuthService} from "../../shared/services/auth.service";
 import {of} from "rxjs";
 import {anything, deepEqual, instance, mock, verify, when} from "@johanblumenberg/ts-mockito";
 import {provideExperimentalZonelessChangeDetection} from "@angular/core";
+import {getTranslocoModule} from "../../shared/testing/transloco-testing.module";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -16,6 +17,7 @@ describe('RegisterComponent', () => {
     authService = mock(AuthService);
 
     await TestBed.configureTestingModule({
+      imports: [getTranslocoModule()],
       providers: [
         provideExperimentalZonelessChangeDetection(),
         { provide: AuthService, useValue: instance(authService) }
@@ -48,7 +50,7 @@ describe('RegisterComponent', () => {
       });
 
       // THEN
-      expect(component.registerForm.valid).toBeTruthy();
+      expect(component.registerForm.valid).toBeTrue();
     });
 
     it('should mark form as invalid when passwords are different', () => {
@@ -112,13 +114,13 @@ describe('RegisterComponent', () => {
 
       // THEN
       expect(emailInput.type).toBe('email');
-      expect(emailInput.required).toBeTruthy();
+      expect(emailInput.required).toBeTrue();
       expect(usernameInput.type).toBe('text');
-      expect(usernameInput.required).toBeTruthy();
+      expect(usernameInput.required).toBeTrue();
       expect(passwordInput.type).toBe('password');
-      expect(passwordInput.required).toBeTruthy();
+      expect(passwordInput.required).toBeTrue();
       expect(confirmPasswordInput.type).toBe('password');
-      expect(confirmPasswordInput.required).toBeTruthy();
+      expect(confirmPasswordInput.required).toBeTrue();
     });
 
     it('should have submit button', () => {
@@ -134,7 +136,7 @@ describe('RegisterComponent', () => {
       const submitButton = TestHelper.getElementByDataTest(fixture, 'submit-button') as HTMLButtonElement;
 
       // THEN
-      expect(submitButton.disabled).toBeTruthy();
+      expect(submitButton.disabled).toBeTrue();
     });
 
     it('should be invalid if password are not equals', () => {
@@ -149,7 +151,7 @@ describe('RegisterComponent', () => {
 
       // THEN
       const submitButton = TestHelper.getElementByDataTest(fixture, 'submit-button') as HTMLButtonElement;
-      expect(submitButton.disabled).toBeTruthy();
+      expect(submitButton.disabled).toBeTrue();
     });
 
     it('should call onSubmit method when form is submitted', () => {
