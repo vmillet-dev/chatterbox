@@ -1,13 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
+import {TranslocoTestingModule} from "@jsverse/transloco";
+import {provideExperimentalZonelessChangeDetection} from "@angular/core";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        AppComponent],
+        TranslocoTestingModule.forRoot({}),
+        AppComponent
+      ],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+      ]
     }).compileComponents();
   });
 

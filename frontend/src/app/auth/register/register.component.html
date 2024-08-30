@@ -3,31 +3,31 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h3 class="mb-0">User Registration</h3>
+          <h3 class="mb-0" data-test="register-title">{{ 'register.form_label' | transloco }}</h3>
         </div>
         <div class="card-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" data-test="register-form">
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email" required>
+              <label for="email" class="form-label">{{ 'register.input_label_email' | transloco }}</label>
+              <input type="email" class="form-control" id="email" formControlName="email" placeholder="{{ 'register.input_placeholder_email' | transloco }}" required data-test="email-input">
             </div>
 
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" formControlName="username" placeholder="Choose a username" required>
+              <label for="username" class="form-label">{{ 'register.input_label_username' | transloco }}</label>
+              <input type="text" class="form-control" id="username" formControlName="username" placeholder="{{ 'register.input_placeholder_username' | transloco }}" required data-test="username-input">
             </div>
 
             <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required>
+              <label for="password" class="form-label">{{ 'register.input_label_password' | transloco }}</label>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="{{ 'register.input_placeholder_password' | transloco }}" required data-test="password-input">
             </div>
 
             <div class="mb-3">
-              <label for="confirmPassword" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm your password" required>
+              <label for="confirmPassword" class="form-label">{{ 'register.input_label_confirm_password' | transloco }}</label>
+              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="{{ 'register.input_placeholder_confirm_password' | transloco }}" required data-test="confirm-password-input">
             </div>
 
-            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Register</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid" data-test="submit-button">{{ 'register.btn_submit' | transloco }}</button>
           </form>
         </div>
       </div>

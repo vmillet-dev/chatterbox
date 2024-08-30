@@ -3,21 +3,21 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h3 class="mb-0">Login</h3>
+          <h3 class="mb-0">{{ 'login.form_label' | transloco }}</h3>
         </div>
         <div class="card-body">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label for="usernameOrEmail" class="form-label">Username or Email</label>
-              <input type="text" class="form-control" id="usernameOrEmail" formControlName="usernameOrEmail" placeholder="Enter your username or email" required>
+              <label for="usernameOrEmail" class="form-label">{{ 'login.input_label_username' | transloco }}</label>
+              <input type="text" class="form-control" id="usernameOrEmail" formControlName="usernameOrEmail" placeholder="{{ 'login.input_placeholder_username' | transloco }}" required>
             </div>
 
             <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password" required>
+              <label for="password" class="form-label">{{ 'login.input_label_password' | transloco }}</label>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="{{ 'login.input_placeholder_password' | transloco }}" required>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">{{ 'login.btn_submit' | transloco }}</button>
           </form>
         </div>
       </div>

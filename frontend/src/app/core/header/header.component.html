@@ -1,6 +1,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">Your App Name</a>
+    <a class="navbar-brand" routerLink="/" [attr.data-test]="'header-app-name'">{{ appName }}</a>
+    <div class="dropdown">
+      <button class="btn btn-primary-outline dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ currentLanguage.flag }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+        @for (lang of languages; track lang) {
+          <li>
+            <a class="dropdown-item" [attr.data-test]="'dropdown-item-' + lang.code"  (click)="changeLanguage(lang.code)">
+              {{ lang.flag }} {{ lang.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,13 +22,12 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- Add any additional nav items here -->
       </ul>
 
       <div class="d-flex">
-        <button class="btn btn-outline-light me-2" routerLink="/dashboard">Dashboard</button>
-        <button class="btn btn-outline-light me-2" routerLink="/auth/login">Login</button>
-        <button class="btn btn-light" routerLink="/auth/register">Register</button>
+        <button [attr.data-test]="'btn-dashboard'" class="btn btn-outline-light me-2" routerLink="/dashboard">{{ 'header.btn_dashboard' | transloco }}</button>
+        <button [attr.data-test]="'btn-login'" class="btn btn-outline-light me-2" routerLink="/auth/login">{{ 'header.btn_login' | transloco }}</button>
+        <button [attr.data-test]="'btn-register'" class="btn btn-light" routerLink="/auth/register">{{ 'header.btn_register' | transloco }}</button>
       </div>
     </div>
   </div>
