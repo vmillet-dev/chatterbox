@@ -10,3 +10,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: "update"
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: "b3ZlcmNvb2sgdW5rbm90dGVkIGRpc3J1cHQgdGFwcyB1bnNuYXAgdHViZWxlc3MgZXhxdWlzaXRlIG1vcnRpZnkgYXRyb2Npb3VzIGNvbGlzZXVtIGNsYXNwIG91dGxldA=="
+    acces-token-expiration: 1200000
+    refresh-token-expiration: 86400000

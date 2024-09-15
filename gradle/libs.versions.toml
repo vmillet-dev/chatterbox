@@ -1,9 +1,9 @@
 [versions]
 kotlin = "2.0.0"
 spring = "3.3.1"
+spring-security-test = "6.3.3"
 spring-web = "6.1.10"
 spring-dep-management = "1.1.5"
-tomcat = "10.1.25"
 
 h2 = "2.2.224"
 postgres = "42.7.3"
@@ -14,12 +14,15 @@ junit-launcher = "1.10.2"
 jakarta = "3.1.0"
 yaml = "2.2"
 hikaricp = "5.1.0"
+jsonwebtoken = "0.12.6"
 
 [libraries]
 springboot-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "spring" }
 springboot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
 springboot-logging = { module = "org.springframework.boot:spring-boot-starter-logging", version.ref = "spring" }
-spring-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring" }
+springboot-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring" }
+springboot-security-test = { module = "org.springframework.security:spring-security-test", version.ref = "spring-security-test" }
+springboot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring" }
 spring-datajpa = { module = "org.springframework.data:spring-data-jpa", version.ref = "spring" }
 spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" } # ?
 spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring-web" }
@@ -36,9 +39,13 @@ jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api", 
 hibernate-core = { module = "org.hibernate.orm:hibernate-core", version.ref = "hibernate" }
 yaml-snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "yaml" }
 zaxxer-hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
+jsonwebtoken-jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jsonwebtoken"}
+jsonwebtoken-jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jsonwebtoken"}
+jsonwebtoken-jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jsonwebtoken"}
 
 [plugins]
 springboot-framework = { id = "org.springframework.boot", version.ref = "spring" }
 springboot-dep-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-management" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-noarg = { id = "org.jetbrains.kotlin.plugin.noarg", version.ref = "kotlin" }

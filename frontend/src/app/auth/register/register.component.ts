@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators
 } from "@angular/forms";
 import {RegisterDto} from "../../shared/dto/register.dto";
 import {AuthService} from "../../shared/services/auth.service";
 import {TranslocoPipe} from "@jsverse/transloco";
+import {passwordMatchValidator} from "./register.validator";
 
 @Component({
   selector: 'app-register',
@@ -37,7 +36,7 @@ export class RegisterComponent {
       username: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', Validators.required)
-    }, { validators: this.passwordMatchValidator });
+    }, { validators: passwordMatchValidator });
   }
 
   onSubmit(): void {
@@ -54,16 +53,5 @@ export class RegisterComponent {
         complete: () => console.info('complete')
       });
     }
-  };
-
-  passwordMatchValidator: ValidatorFn = (control: AbstractControl): {[key: string]: any} | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      return { 'passwordMismatch': true };
-    }
-
-    return null;
   };
 }

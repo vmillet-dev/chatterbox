@@ -1,5 +1,5 @@
 package dev.vmillet.chatterbox.models.responses
 
-data class ResponseMessage(
+data class MessageResponse(
     val message: String
 )

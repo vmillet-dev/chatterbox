@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TranslocoPipe} from "@jsverse/transloco";
+import {AuthService} from "../../shared/services/auth.service";
+import {LoginDto} from "../../shared/dto/login.dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -19,17 +22,26 @@ export class LoginComponent {
     password: FormControl<string | null>;
   }>;
 
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
     this.loginForm = new FormGroup({
       usernameOrEmail: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.formValidation = true;
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+
+      const dto = {
+        usernameOrEmail: this.loginForm.controls.usernameOrEmail.value,
+        password: this.loginForm.controls.password.value
+      } as LoginDto
+
+      this.authService.loginUser(dto).subscribe({
+        next: () => void this.router.navigate(['/dashboard']),
+        error: (e) => console.error(e)
+      });
     }
   }
 }

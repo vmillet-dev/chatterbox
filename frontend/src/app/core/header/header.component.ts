@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
 import packageInfo  from '../../../../package.json'
 import {UtilService} from "../../shared/services/util.service";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,12 @@ export class HeaderComponent implements OnInit{
   currentLanguage: { code: string; flag: string; name: string } = this.languages[0];
   appName = UtilService.toCapitalize(packageInfo.name);
 
-  constructor(private translocoService: TranslocoService, private localStorageService: LocalStorageService) {}
+  constructor(
+    protected authService: AuthService,
+    private translocoService: TranslocoService,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const savedLang = this.localStorageService.getData('selected_lang');
@@ -43,5 +49,10 @@ export class HeaderComponent implements OnInit{
 
   private setCurrentLanguage(value: string): void {
     this.currentLanguage = this.languages.find(lang => lang.code === value) ?? this.languages[0];
+  }
+
+  logout(): void {
+    this.authService.logout();
+    void this.router.navigate(['']);
   }
 }

@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.springboot.dep.management)
 	alias(libs.plugins.kotlin.jvm)
 	alias(libs.plugins.kotlin.spring)
+	alias(libs.plugins.kotlin.noarg)
 }
 
 group = "dev.vmillet"
@@ -21,7 +22,8 @@ repositories {
 dependencies {
 	implementation(libs.springboot.logging)
 	implementation(libs.springboot.tomcat)
-	implementation(libs.spring.autoconfigure)
+	implementation(libs.springboot.security)
+	implementation(libs.springboot.autoconfigure)
 	implementation(libs.spring.datajpa)
 	implementation(libs.spring.webmvc)
 	implementation(libs.spring.websocket)
@@ -32,9 +34,13 @@ dependencies {
 	implementation(libs.hibernate.core)
 	implementation(libs.yaml.snakeyaml)
 	implementation(libs.zaxxer.hikaricp)
+	implementation(libs.jsonwebtoken.jjwt.api)
 	runtimeOnly(libs.postgresql)
+	runtimeOnly(libs.jsonwebtoken.jjwt.impl)
+	runtimeOnly(libs.jsonwebtoken.jjwt.jackson)
 
 	testImplementation(libs.springboot.test)
+	testImplementation(libs.springboot.security.test)
 	testImplementation(libs.kotlin.test)
 	testImplementation(libs.h2.database)
 	testRuntimeOnly(libs.junit.plateform.launcher)
@@ -66,4 +72,8 @@ tasks.processResources  {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+noArg {
+	annotation("jakarta.persistence.Entity")
 }

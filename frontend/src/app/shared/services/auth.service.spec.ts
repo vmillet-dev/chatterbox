@@ -3,14 +3,17 @@ import {ApiService} from "./api.service";
 import {AuthService} from "./auth.service";
 import {RegisterDto} from "../dto/register.dto";
 import {LoginDto} from "../dto/login.dto";
+import {LocalStorageService} from "./local-storage.service";
 
 describe('AuthService', () => {
   let service: AuthService;
   let apiService: ApiService;
+  let localStorageService: LocalStorageService;
 
   beforeEach(() => {
-    apiService = mock(ApiService)
-    service = new AuthService(instance(apiService));
+    apiService = mock(ApiService);
+    localStorageService = mock(LocalStorageService);
+    service = new AuthService(instance(apiService), instance(localStorageService));
   });
 
   it('should call apiService.post with correct parameters when register', () => {
