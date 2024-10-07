@@ -10,7 +10,7 @@ postgres = "42.7.3"
 hibernate = "6.5.2.Final"
 
 fasterxml-jackson = "2.17.1"
-junit-launcher = "1.10.2"
+junit-launcher = "1.11.2"
 jakarta = "3.1.0"
 yaml = "2.2"
 hikaricp = "5.1.0"
