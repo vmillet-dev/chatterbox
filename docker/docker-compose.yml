@@ -14,7 +14,7 @@ services:
 
   backend:
     build:
-      context: backend
+      context: ../backend
       dockerfile: ../docker/backend/Dockerfile
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/chatterbox_db
@@ -29,7 +29,7 @@ services:
 
   frontend:
     build:
-      context: frontend
+      context: ../frontend
       dockerfile: ../docker/frontend/Dockerfile
     ports:
       - "80:80"
