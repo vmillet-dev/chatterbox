@@ -1,19 +1,19 @@
 [versions]
-kotlin = "2.0.0"
-spring = "3.3.1"
-spring-security-test = "6.3.3"
-spring-web = "6.1.10"
-spring-dep-management = "1.1.5"
+kotlin = "2.1.0"
+spring = "3.4.2"
+spring-security-test = "6.4.2"
+spring-web = "6.2.2"
+spring-dep-management = "1.1.7"
 
-h2 = "2.2.224"
-postgres = "42.7.3"
-hibernate = "6.5.2.Final"
+h2 = "2.3.232"
+postgres = "42.7.5"
+hibernate = "6.6.5.Final"
 
-fasterxml-jackson = "2.17.1"
-junit-launcher = "1.10.2"
+fasterxml-jackson = "2.18.2"
+junit-launcher = "1.11.4"
 jakarta = "3.1.0"
-yaml = "2.2"
-hikaricp = "5.1.0"
+yaml = "2.3"
+hikaricp = "6.2.1"
 jsonwebtoken = "0.12.6"
 
 [libraries]
