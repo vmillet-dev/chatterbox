@@ -6,14 +6,13 @@ import {LoginDto} from "../../shared/dto/login.dto";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    TranslocoPipe
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    imports: [
+        ReactiveFormsModule,
+        TranslocoPipe
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   formValidation: boolean = false;

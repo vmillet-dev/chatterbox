@@ -12,15 +12,14 @@ import {TranslocoPipe} from "@jsverse/transloco";
 import {passwordMatchValidator} from "./register.validator";
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
+    selector: 'app-register',
     imports: [
         FormsModule,
         ReactiveFormsModule,
         TranslocoPipe
     ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   registerForm: FormGroup<{

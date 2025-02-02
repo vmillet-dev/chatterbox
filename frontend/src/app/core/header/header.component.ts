@@ -7,14 +7,13 @@ import {UtilService} from "../../shared/services/util.service";
 import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    RouterLink,
-    TranslocoPipe
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [
+        RouterLink,
+        TranslocoPipe
+    ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
   languages = [

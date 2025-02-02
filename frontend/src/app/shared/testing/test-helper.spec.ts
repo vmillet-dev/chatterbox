@@ -3,13 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {Component, provideExperimentalZonelessChangeDetection} from '@angular/core';
 
 @Component({
-  template: `
+    template: `
     <div id="test-id" data-test="test-data">Test Content</div>
     <input id="test-input" data-test="test-input" />
     <button id="test-button" data-test="test-button" (click)="onButtonClick()">Click me</button>
     <div class="test-class">Class Test 1</div>
     <div class="test-class">Class Test 2</div>
-  `
+  `,
+    standalone: false
 })
 class TestComponent {
   onButtonClick() {}
