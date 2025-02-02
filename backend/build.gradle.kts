@@ -52,18 +52,6 @@ kotlin {
 	}
 }
 
-sourceSets {
-	main {
-		java.srcDirs("backend/main/kotlin")
-		resources.srcDirs("backend/main/resources")
-	}
-
-	test {
-		java.srcDirs("backend/test/kotlin")
-		resources.srcDirs("backend/test/resources")
-	}
-}
-
 tasks.processResources  {
 	from("frontend/dist/browser") {
 		into("static")
