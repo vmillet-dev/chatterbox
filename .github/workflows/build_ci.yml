@@ -2,8 +2,6 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ '*' ]
-    tags: [ '*' ]
   pull_request:
 
 jobs:
@@ -110,15 +108,7 @@ jobs:
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
-          context: ./frontend
-          file: ./docker/frontend/Dockerfile
+          context: .
+          file: ./docker/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:${{ env.VERSION }}-frontend
-
-      - name: Build and push backend image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./backend
-          file: ./docker/backend/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:${{ env.VERSION }}-backend

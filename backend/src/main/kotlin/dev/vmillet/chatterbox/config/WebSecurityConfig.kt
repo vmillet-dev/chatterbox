@@ -43,7 +43,15 @@ class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFi
             }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/auth/**",
+                        "/",
+                        "/static/**",
+                        "/resources/**",
+                        "/*.js",
+                        "/*.css",
+                        "/*.html",
+                        "/*.ico",
+                        "/assets/**").permitAll()
                     .anyRequest()
                     .authenticated()
             }
